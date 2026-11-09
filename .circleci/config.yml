@@ -1,0 +1,1456 @@
+version: 2.1
+
+jobs:
+  PARAM:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: PERF 968 sterilize gel
+          command: |
+            mkdir -p /tmp/segment-05
+            set +o pipefail 2>/dev/null; sort <(seq 1372269 2 1) <(seq 1 2 1372269) > /tmp/segment-05/_wip-b1644; true
+            printf 'summary name=%s b=%d l=%d\n' "xray" "$(wc -c </tmp/segment-05/_wip-b1644)" "$(wc -l </tmp/segment-05/_wip-b1644)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - '_wip-b1644'
+  xray:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/NoiseProfileHollowAtoll 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  wide_lock_process_normal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Rinse the water bath and seal
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; mkdir -p "/var/tmp/onion.bee" && cd "/var/tmp/onion.bee" && touch tools story plot && ls && cd - >/dev/null; true ; } > /tmp/segment-05/NoiseProfileHollowAtoll
+            printf 'summary name=%s b=%d l=%d\n' "nico-smoke" "$(wc -c </tmp/segment-05/NoiseProfileHollowAtoll)" "$(wc -l </tmp/segment-05/NoiseProfileHollowAtoll)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'NoiseProfileHollowAtoll'
+  nico-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/NoiseProfileHollowAtoll 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  ipIPArticle:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: MUX BUMPER
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; if command -v grep >/dev/null 2>&1;then echo "grep found"; fi; true ; } > /tmp/segment-05/v_40714
+            printf 'summary name=%s b=%d l=%d\n' "vega-rev" "$(wc -c </tmp/segment-05/v_40714)" "$(wc -l </tmp/segment-05/v_40714)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'v_40714'
+  vega-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/v_40714 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  work-stub:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Approval perf
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; find /usr/lib -type d -not -name 'lib*' -exec ls -1d {} + 2>/dev/null | wc -l; true ; } > /tmp/segment-05/Lc1qAj1xHUvP81f
+            printf 'summary name=%s b=%d l=%d\n' "STG_RUN_6" "$(wc -c </tmp/segment-05/Lc1qAj1xHUvP81f)" "$(wc -l </tmp/segment-05/Lc1qAj1xHUvP81f)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'Lc1qAj1xHUvP81f'
+  STG_RUN_6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/Lc1qAj1xHUvP81f 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  MAX_METRIC_US:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Sven owns wait
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; printf '%s\n' monday wednesday friday saturday tuesday >/tmp/night-common.txt && sort -r /tmp/night-common.txt; true ; } > /tmp/segment-05/qu3u3.73n5or.717an.modu13
+            printf 'summary name=%s b=%d l=%d\n' "LAB_INIT_4" "$(wc -c </tmp/segment-05/qu3u3.73n5or.717an.modu13)" "$(wc -l </tmp/segment-05/qu3u3.73n5or.717an.modu13)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'qu3u3.73n5or.717an.modu13'
+  LAB_INIT_4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/qu3u3.73n5or.717an.modu13 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  entry5:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Isolate the oauth scopes and move on
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; find /dev -maxdepth 3 -group root -exec ls -ld {} + 2>/dev/null | sort | head -12; true ; } > /tmp/segment-05/16.02.2025
+            printf 'summary name=%s b=%d l=%d\n' "sep21-rev" "$(wc -c </tmp/segment-05/16.02.2025)" "$(wc -l </tmp/segment-05/16.02.2025)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - '16.02.2025'
+  sep21-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/16.02.2025 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  trewcvbn:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: XXX remaster the hero banner properly
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; gzip -c /etc/hosts >"/tmp/media-copy.gz" && gzip -t "/tmp/media-copy.gz" && echo valid; true ; } > /tmp/segment-05/azureshimmerthetathunder
+            printf 'summary name=%s b=%d l=%d\n' "sam-run" "$(wc -c </tmp/segment-05/azureshimmerthetathunder)" "$(wc -l </tmp/segment-05/azureshimmerthetathunder)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'azureshimmerthetathunder'
+  sam-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/azureshimmerthetathunder 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  bon:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Lima snapshot
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; touch /tmp/schedule-fixes.tmp && mv /tmp/schedule-fixes.tmp "/tmp/job-2019-06-05.out" && ls -l "/tmp/job-2019-06-05.out"; true ; } > /tmp/segment-05/nickel584
+            printf 'summary name=%s b=%d l=%d\n' "canary" "$(wc -c </tmp/segment-05/nickel584)" "$(wc -l </tmp/segment-05/nickel584)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'nickel584'
+  canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/nickel584 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  salt_:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Launch window reroute
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; touch "/tmp/theme-mount-chapter-final.conf" && chmod u+x "/tmp/theme-mount-chapter-final.conf" && stat -c %a "/tmp/theme-mount-chapter-final.conf"; true ; } > /tmp/segment-05/PANO_94667
+            printf 'summary name=%s b=%d l=%d\n' "STG_VERIFY_6" "$(wc -c </tmp/segment-05/PANO_94667)" "$(wc -l </tmp/segment-05/PANO_94667)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'PANO_94667'
+  STG_VERIFY_6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/PANO_94667 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  ID-STATUS-DTL:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Post the commissions ready for QA
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; tr -cs '[:alnum:]' '\n' </etc/profile; true ; } > /tmp/segment-05/24.01.2022
+            printf 'summary name=%s b=%d l=%d\n' "romeo-2" "$(wc -c </tmp/segment-05/24.01.2022)" "$(wc -l </tmp/segment-05/24.01.2022)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - '24.01.2022'
+  romeo-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/NoiseProfileHollowAtoll 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  php-x86-stable:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: close bastion host later
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; gzip -c /etc/passwd >"/tmp/yellow-island-20261011.gz" && zcat "/tmp/yellow-island-20261011.gz" | head -n3; true ; } > /tmp/segment-05/thread_kappa
+            printf 'summary name=%s b=%d l=%d\n' "fix-dashboard-leak" "$(wc -c </tmp/segment-05/thread_kappa)" "$(wc -l </tmp/segment-05/thread_kappa)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'thread_kappa'
+  fix-dashboard-leak:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/thread_kappa 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  fOV4IB8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Go batch the validation split
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; gzip -c /etc/group >"${TMPDIR:-/tmp}/po9-0704.gz" && gunzip -c "${TMPDIR:-/tmp}/po9-0704.gz" | wc -l; true ; } > /tmp/segment-05/LOT-22577-MI
+            printf 'summary name=%s b=%d l=%d\n' "sierra-6" "$(wc -c </tmp/segment-05/LOT-22577-MI)" "$(wc -l </tmp/segment-05/LOT-22577-MI)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'LOT-22577-MI'
+  sierra-6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/NoiseProfileHollowAtoll 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  blog_limit_helper_8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Backend team bucket late arrivals
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; echo 'done!' >/tmp/view.txt; wc -c /tmp/view.txt; true ; } > /tmp/segment-05/crc_9c14fd
+            printf 'summary name=%s b=%d l=%d\n' "CORE-379" "$(wc -c </tmp/segment-05/crc_9c14fd)" "$(wc -l </tmp/segment-05/crc_9c14fd)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'crc_9c14fd'
+  CORE-379:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/crc_9c14fd 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  path-2014-w26:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: fyi fingerprint the security headers
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; echo '3 jobs pending'|tee /tmp/wolf.conf /tmp/new-addon.bak >/dev/null && cat /tmp/new-addon.bak; true ; } > /tmp/segment-05/packet-RPC-dev-Maple
+            printf 'summary name=%s b=%d l=%d\n' "verify-staging-docker-image" "$(wc -c </tmp/segment-05/packet-RPC-dev-Maple)" "$(wc -l </tmp/segment-05/packet-RPC-dev-Maple)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'packet-RPC-dev-Maple'
+  verify-staging-docker-image:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/NoiseProfileHollowAtoll 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  swuembrount-app:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Q17 sharding transaction log
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; seq 12 65 | head -20 | sort -n; true ; } > /tmp/segment-05/eastRedThunder
+            printf 'summary name=%s b=%d l=%d\n' "nebula-beta" "$(wc -c </tmp/segment-05/eastRedThunder)" "$(wc -l </tmp/segment-05/eastRedThunder)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'eastRedThunder'
+  nebula-beta:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/eastRedThunder 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  batchTotalHandlerLedgerAtlas:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Strain the chargebacks
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; echo "won't fix" | cut -d' ' -f1; true ; } > /tmp/segment-05/142.165
+            printf 'summary name=%s b=%d l=%d\n' "b-x" "$(wc -c </tmp/segment-05/142.165)" "$(wc -l </tmp/segment-05/142.165)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - '142.165'
+  b-x:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/142.165 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  MVPSVMRect:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Pack Crafting Recipes At 1080p
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; getent group | cut -f1 -d: | awk 'length > 6'; true ; } > /tmp/segment-05/cluster-glacier-vault-silent
+            printf 'summary name=%s b=%d l=%d\n' "node20-cov" "$(wc -c </tmp/segment-05/cluster-glacier-vault-silent)" "$(wc -l </tmp/segment-05/cluster-glacier-vault-silent)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'cluster-glacier-vault-silent'
+  node20-cov:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/cluster-glacier-vault-silent 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  exit2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Prioritize renewal
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; \grep --invert-match -n "bash" /etc/passwd|head -n1; true ; } > /tmp/segment-05/echo607
+            printf 'summary name=%s b=%d l=%d\n' "ci-old" "$(wc -c </tmp/segment-05/echo607)" "$(wc -l </tmp/segment-05/echo607)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'echo607'
+  ci-old:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/echo607 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  orbit-normal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Lab snapshot gate
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; for word in magenta yellow black red cyan; do echo "<$word>"; done | paste -sd ' '; true ; } > /tmp/segment-05/dm0Km6BV
+            printf 'summary name=%s b=%d l=%d\n' "verify" "$(wc -c </tmp/segment-05/dm0Km6BV)" "$(wc -l </tmp/segment-05/dm0Km6BV)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'dm0Km6BV'
+  verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/dm0Km6BV 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  unmountResultLightError:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: COMMIT 7ED60 INSPECTION
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; cp /etc/os-release /tmp/tree.tmp &&sed -i 's/^NAME=/OS_NAME=/' /tmp/tree.tmp &&cat /tmp/tree.tmp; true ; } > /tmp/segment-05/1450lhw
+            printf 'summary name=%s b=%d l=%d\n' "q3-rev" "$(wc -c </tmp/segment-05/1450lhw)" "$(wc -l </tmp/segment-05/1450lhw)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - '1450lhw'
+  q3-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/NoiseProfileHollowAtoll 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  given_upper_manifest:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Soon ingest the product catalog
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; if [ -f ~/.bashrc ]; then echo true; else echo "false"; fi; true ; } > /tmp/segment-05/kappa-4415
+            printf 'summary name=%s b=%d l=%d\n' "depoly" "$(wc -c </tmp/segment-05/kappa-4415)" "$(wc -l </tmp/segment-05/kappa-4415)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'kappa-4415'
+  depoly:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/kappa-4415 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  b:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Round VII Training
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; (umask 077; touch '/tmp/usage-city-draft.dat' && stat -c %a '/tmp/usage-city-draft.dat'); true ; } > /tmp/segment-05/_wip-9d8179
+            printf 'summary name=%s b=%d l=%d\n' "q1-release" "$(wc -c </tmp/segment-05/_wip-9d8179)" "$(wc -l </tmp/segment-05/_wip-9d8179)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - '_wip-9d8179'
+  q1-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/NoiseProfileHollowAtoll 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  bundle956usd:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: isolate EVERYTHING
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; grep -iH --color=always users /etc/passwd /etc/group | head -n8; true ; } > /tmp/segment-05/FOREST_GREEN
+            printf 'summary name=%s b=%d l=%d\n' "INFRA-272" "$(wc -c </tmp/segment-05/FOREST_GREEN)" "$(wc -l </tmp/segment-05/FOREST_GREEN)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'FOREST_GREEN'
+  INFRA-272:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/NoiseProfileHollowAtoll 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  ACCOUNT_MATRIX:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: ps hover the footer links
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; grep -rh alias /etc/skel | wc -l; true ; } > /tmp/segment-05/CSV
+            printf 'summary name=%s b=%d l=%d\n' "Run_Release5" "$(wc -c </tmp/segment-05/CSV)" "$(wc -l </tmp/segment-05/CSV)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'CSV'
+  Run_Release5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/NoiseProfileHollowAtoll 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  LINK_5:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Text Type Scheduled
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; ps -eo pid,ppid,comm --sort=pid | head --lines=3; true ; } > /tmp/segment-05/meadow.bramble.TCP
+            printf 'summary name=%s b=%d l=%d\n' "hotfix-797" "$(wc -c </tmp/segment-05/meadow.bramble.TCP)" "$(wc -l </tmp/segment-05/meadow.bramble.TCP)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'meadow.bramble.TCP'
+  hotfix-797:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/meadow.bramble.TCP 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  LS-PTR-C:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: COOLDOWN 202702
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; gzip -c /etc/os-release >"${TMPDIR:-/tmp}/lemon.gz" && gzip -cd "${TMPDIR:-/tmp}/lemon.gz"; true ; } > /tmp/segment-05/rev-2162
+            printf 'summary name=%s b=%d l=%d\n' "q1-smoke" "$(wc -c </tmp/segment-05/rev-2162)" "$(wc -l </tmp/segment-05/rev-2162)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'rev-2162'
+  q1-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/NoiseProfileHollowAtoll 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  PatternEnum:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Demux for QA
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; mkdir -p /tmp/desert_2 && touch /tmp/desert_2/note-{1..6}.tmp && ls /tmp/desert_2; true ; } > /tmp/segment-05/dUStyRenDER
+            printf 'summary name=%s b=%d l=%d\n' "spin-up" "$(wc -c </tmp/segment-05/dUStyRenDER)" "$(wc -l </tmp/segment-05/dUStyRenDER)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'dUStyRenDER'
+  spin-up:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/dUStyRenDER 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  url34s:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: CustomerRecordEnrichment
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; echo; echo 'meeting moved to 3pm'; echo; true ; } > /tmp/segment-05/ossystxt
+            printf 'summary name=%s b=%d l=%d\n' "assemble-production-artifact-bundle" "$(wc -c </tmp/segment-05/ossystxt)" "$(wc -l </tmp/segment-05/ossystxt)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'ossystxt'
+  assemble-production-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/ossystxt 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  MSD-571-resume-enum:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: 890 garbage collect the nightly window
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; grep --no-filename 'alias' ~/.bashrc|sort|uniq -c; true ; } > /tmp/segment-05/iter_108
+            printf 'summary name=%s b=%d l=%d\n' "qa-alt" "$(wc -c </tmp/segment-05/iter_108)" "$(wc -l </tmp/segment-05/iter_108)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'iter_108'
+  qa-alt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/iter_108 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+  mission-yankee:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Warn the ops channel in time for compliance
+          command: |
+            mkdir -p /tmp/segment-05
+            { set +o pipefail 2>/dev/null; ls -S ~ | shuf -n 2; true ; } > /tmp/segment-05/qaanD8aRaj
+            printf 'summary name=%s b=%d l=%d\n' "INIT_STG" "$(wc -c </tmp/segment-05/qaanD8aRaj)" "$(wc -l </tmp/segment-05/qaanD8aRaj)"
+      - persist_to_workspace:
+          root: /tmp/segment-05
+          paths:
+            - 'qaanD8aRaj'
+  INIT_STG:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/segment-05
+      - run:
+          name: Harvest gate output
+          command: |
+            [ "$(stat -c %s /tmp/segment-05/qaanD8aRaj 2>/dev/null)" -gt 0 ] && echo "nonzero" || echo "zero"
+      - run:
+          name: Retrieve codebase
+          command: git clone --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Expand archive
+          command: tar --extract --bzip2 --file=weekly-dist.tar.bz2
+      - run:
+          command: g++ --version
+      - run:
+          no_output_timeout: 15m
+          command: sleep 90
+      - run:
+          command: free -m
+      - run:
+          command: env ./pack-plugin
+
+workflows:
+  workflow:
+    jobs:
+      - entry5
+      - sep21-rev:
+          requires:
+            - entry5
+      - orbit-normal:
+          requires:
+            - entry5
+      - verify:
+          requires:
+            - orbit-normal
+      - PatternEnum:
+          requires:
+            - orbit-normal
+      - spin-up:
+          requires:
+            - PatternEnum
+      - given_upper_manifest:
+          requires:
+            - PatternEnum
+      - depoly:
+          requires:
+            - given_upper_manifest
+      - bon:
+          requires:
+            - given_upper_manifest
+      - canary:
+          requires:
+            - bon
+      - php-x86-stable:
+          requires:
+            - bon
+      - fix-dashboard-leak:
+          requires:
+            - php-x86-stable
+      - mission-yankee:
+          requires:
+            - php-x86-stable
+      - INIT_STG:
+          requires:
+            - mission-yankee
+      - swuembrount-app:
+          requires:
+            - mission-yankee
+      - nebula-beta:
+          requires:
+            - swuembrount-app
+      - wide_lock_process_normal
+      - path-2014-w26
+      - bundle956usd
+      - nico-smoke:
+          requires:
+            - wide_lock_process_normal
+            - path-2014-w26
+            - bundle956usd
+      - verify-staging-docker-image:
+          requires:
+            - wide_lock_process_normal
+            - path-2014-w26
+            - bundle956usd
+      - INFRA-272:
+          requires:
+            - wide_lock_process_normal
+            - path-2014-w26
+            - bundle956usd
+      - q3-rev:
+          requires:
+            - wide_lock_process_normal
+            - path-2014-w26
+            - bundle956usd
+      - q1-release:
+          requires:
+            - wide_lock_process_normal
+            - path-2014-w26
+            - bundle956usd
+      - xray:
+          requires:
+            - wide_lock_process_normal
+            - path-2014-w26
+            - bundle956usd
+      - romeo-2:
+          requires:
+            - wide_lock_process_normal
+            - path-2014-w26
+            - bundle956usd
+      - sierra-6:
+          requires:
+            - wide_lock_process_normal
+            - path-2014-w26
+            - bundle956usd
+      - q1-smoke:
+          requires:
+            - wide_lock_process_normal
+            - path-2014-w26
+            - bundle956usd
+      - Run_Release5:
+          requires:
+            - wide_lock_process_normal
+            - path-2014-w26
+            - bundle956usd
+      - MAX_METRIC_US
+      - LAB_INIT_4:
+          requires:
+            - MAX_METRIC_US
+      - MSD-571-resume-enum:
+          requires:
+            - MAX_METRIC_US
+      - qa-alt:
+          requires:
+            - MSD-571-resume-enum
+      - ipIPArticle:
+          requires:
+            - MSD-571-resume-enum
+      - vega-rev:
+          requires:
+            - ipIPArticle
+      - batchTotalHandlerLedgerAtlas:
+          requires:
+            - ipIPArticle
+      - b-x:
+          requires:
+            - batchTotalHandlerLedgerAtlas
+      - url34s:
+          requires:
+            - batchTotalHandlerLedgerAtlas
+      - assemble-production-artifact-bundle:
+          requires:
+            - url34s
+      - salt_:
+          requires:
+            - url34s
+      - STG_VERIFY_6:
+          requires:
+            - salt_
+      - work-stub:
+          requires:
+            - salt_
+      - STG_RUN_6:
+          requires:
+            - work-stub
+      - LINK_5:
+          requires:
+            - work-stub
+      - hotfix-797:
+          requires:
+            - LINK_5
+      - exit2:
+          requires:
+            - LINK_5
+      - ci-old:
+          requires:
+            - exit2
+      - trewcvbn:
+          requires:
+            - exit2
+      - sam-run:
+          requires:
+            - trewcvbn
+      - MVPSVMRect:
+          requires:
+            - trewcvbn
+      - node20-cov:
+          requires:
+            - MVPSVMRect
+      - blog_limit_helper_8:
+          requires:
+            - MVPSVMRect
+      - CORE-379:
+          requires:
+            - blog_limit_helper_8
